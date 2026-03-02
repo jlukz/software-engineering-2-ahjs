@@ -1,6 +1,9 @@
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
+    --background: #ededed;
+    --foreground: #0a0a0a;
+
+    --background-color: var(--background);
+    --border-color: var(--foreground);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,29 +38,197 @@ a {
     text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-    html {
-        color-scheme: dark;
+/*login page*/
+.main-container {
+    /*padding: 2rem;*/
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 2rem;
+    height: 100vh;
+
+    .divider {
+        width: 6px;
+        height: 240px;
+        background: var(--foreground);
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        max-width: 320px;
+        font-size: 45px;
+        font-weight: 600;
+        line-height: 48px;
+        letter-spacing: -2px;
+        text-wrap: balance;
+    }
+
+    .outer-div {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1.3rem;
+    }
+
+    .inner-div {
+        max-width: 440px;
+        font-size: 40px;
+        line-height: 30px;
+        text-wrap: balance;
+        color: var(--text-secondary);
+
+        a {
+            display: inline-block;
+            transition:
+                transform 160ms ease,
+                text-underline-offset 160ms ease,
+                opacity 160ms ease;
+            text-decoration: none;
+        }
+
+        a:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
     }
 }
 
-/*
-Styles for the login forms
-*/
-
+/*component login form*/
 .login-form {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: green;
+    flex-direction: colomn;
 }
 
-.login-form .email-field {
+/*client login form*/
+.client-login-form,
+.accountant-login-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 2rem;
+    text-align: right;
+
+    .divider {
+        width: 6px;
+        height: 240px;
+        background: var(--foreground);
+    }
+
+    .login-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        max-width: 320px;
+        font-size: 45px;
+        font-weight: 600;
+        line-height: 48px;
+        letter-spacing: -2.4px;
+        text-wrap: balance;
+    }
+
+    .form-group {
+        padding-top: 2.3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.3rem;
+
+        input {
+            padding: 0.6rem;
+            border-color: var(--background);
+            outline: none;
+            box-shadow: none;
+            border: none;
+            border-bottom: 3px solid var(--foreground);
+            font-size: 18px;
+            line-height: 0rem;
+            width: 30vw;
+            border-radius: none;
+            color: var(--foreground);
+            background-color: var(--background-color);
+
+            transition:
+                /*border-color 160ms ease,
+                background-color 160ms ease,
+                box-shadow 160ms ease,*/ transform
+                160ms ease;
+        }
+
+        input:hover {
+            border-color: var(--foreground);
+            background-color: var(--background-color);
+            transform: translateY(-5px);
+        }
+        input:active {
+            transform: translateY(0px);
+        }
+
+        input:focus {
+            border-bottom-color: var(--foreground);
+            background-color: var(--background-color);
+            color: var(--foreground);
+            transform: translateY(-3px);
+        }
+
+        /*to override annoying autofill color. doesnt work*/
+        input:valid {
+            border-color: inherit;
+            border-bottom-color: var(--foreground);
+            color: var(--foreground);
+            background-color: var(--background-color);
+        }
+    }
+
+    button {
+        align-self: flex-end;
+        border: 0;
+        border-radius: 1px;
+        letter-spacing: -0.05em;
+        font-size: 17px;
+        font-weight: light;
+        text-transform: uppercase;
+        color: var(--text-primary);
+        background-color: var(--background-color);
+        transition: transform 160ms ease;
+    }
+
+    button:hover {
+        transform: translateX(6px) scale(1.2);
+    }
+    button:active {
+        transform: translateX(4px) scale(1.2);
+    }
 }
 
-.login-form .password-field {
+.role-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
 }
-
-.login-form .submit-button {
+.role-switch {
+    font-size: 15px;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    text-underline-offset: 6px;
+    opacity: 0.7;
+    transition:
+        transform 160ms ease,
+        opacity 160ms ease;
+}
+.role-switch:hover {
+    transform: translateY(-1px);
+    opacity: 1;
 }
