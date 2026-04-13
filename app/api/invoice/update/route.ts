@@ -13,7 +13,7 @@ const updateInvoiceBody = z.object({
 export async function PUT(request: Request): Promise<Response> {
   const invoice = updateInvoiceBody.parse(await request.json());
 
-  editInvoice(invoice);
+  await editInvoice(invoice);
 
   return new Response();
 }
