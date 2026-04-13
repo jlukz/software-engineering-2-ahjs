@@ -238,109 +238,45 @@ function UploadInvoiceModal({
   );
 }
 
-const mockInvoices: Invoice[] = [
-  {
-    date: "03/01/2026",
-    counterparty: "Nordic Timber Oy",
-    type: "Income",
-    amount: 1240,
-    total: 1240,
-    status: "Approved",
-  },
-  {
-    date: "03/01/2026",
-    counterparty: "Savo Office Supply",
-    type: "Expense",
-    amount: 89.9,
-    total: 89.9,
-    status: "Approved",
-  },
-  {
-    date: "03/02/2026",
-    counterparty: "Joensuu Media House",
-    type: "Income",
-    amount: 560,
-    total: 560,
-    status: "Processing",
-  },
-  {
-    date: "03/02/2026",
-    counterparty: "CloudHost Finland",
-    type: "Expense",
-    amount: 42,
-    total: 42,
-    status: "Draft",
-  },
-  {
-    date: "03/03/2026",
-    counterparty: "Arctic Design Studio",
-    type: "Income",
-    amount: 2100,
-    total: 2100,
-    status: "Approved",
-  },
-  {
-    date: "03/03/2026",
-    counterparty: "SteelFrame Logistics",
-    type: "Expense",
-    amount: 315.45,
-    total: 315.45,
-    status: "Processing",
-  },
-  {
-    date: "03/04/2026",
-    counterparty: "UEF Robotics Club",
-    type: "Income",
-    amount: 780,
-    total: 780,
-    status: "Draft",
-  },
-  {
-    date: "03/04/2026",
-    counterparty: "PrintLab North Karelia",
-    type: "Expense",
-    amount: 126.5,
-    total: 126.5,
-    status: "Approved",
-  },
-  {
-    date: "03/05/2026",
-    counterparty: "Karelia Event Group",
-    type: "Income",
-    amount: 3400,
-    total: 3400,
-    status: "Approved",
-  },
-  {
-    date: "03/05/2026",
-    counterparty: "ByteTax Solutions",
-    type: "Expense",
-    amount: 670,
-    total: 670,
-    status: "Processing",
-  },
-  {
-    date: "03/05/2026",
-    counterparty: "Studio Vantaa",
-    type: "Income",
-    amount: 980.25,
-    total: 980.25,
-    status: "Draft",
-  },
-  {
-    date: "03/06/2026",
-    counterparty: "Northern Freight",
-    type: "Expense",
-    amount: 149.99,
-    total: 149.99,
-    status: "Approved",
-  },
-];
+function EditInvoiceDetailsModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  if (!open) return null;
+
+  return (
+    <div className="modal-backdrop" role="dialog" aria-modal="true">
+      <div className="modal">
+        <div className="modal-header">
+          <h2 className="modal-title">Edit Invoice Details</h2>
+          <button type="button" className="button-secondary" onClick={onClose}>
+            Close
+          </button>
+        </div>
+
+        <div className="form">
+          <p>
+             the editing form
+              fields are yet to be added. Abeni, you maybe? 🤨
+          </p>
+          <div className="form-actions">
+            <button type="button" className="button-secondary" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Dashboard() {
   const [invoices, setInvoices] = useState<Invoice[]>(getInvoice());
-  const [invoices, setInvoices] = useState<Invoice[]>(mockInvoices);
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [uploadModalOpen, setUploadModalOpen] = useState<boolean>(false);
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
 
   const addInvoice = (
@@ -392,9 +328,14 @@ export default function Dashboard() {
         <div className="content">
           <div className="content-header">
             <h1>Invoices</h1>
-            <button type="button" onClick={() => setModalOpen(true)}>
-              + Upload Invoice
-            </button>
+            <div style={{ display: "flex", gap: "0.75rem" }}>
+              <button type="button" onClick={() => setEditModalOpen(true)}>
+                Edit Invoice Details
+              </button>
+              <button type="button" onClick={() => setUploadModalOpen(true)}>
+                + Upload Invoice
+              </button>
+            </div>
           </div>
 
           <table className="invoice-table">
@@ -429,11 +370,15 @@ export default function Dashboard() {
       </main>
 
       <UploadInvoiceModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
+        open={uploadModalOpen}
+        onClose={() => setUploadModalOpen(false)}
         onSubmit={({ counterparty, type, amount, status }) =>
           addInvoice(counterparty, type, amount, status)
         }
+      />
+      <EditInvoiceDetailsModal
+        open={editModalOpen}
+        onClose={() => setEditModalOpen(false)}
       />
     </div>
   );
