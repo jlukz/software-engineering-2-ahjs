@@ -275,10 +275,31 @@ function EditInvoiceDetailsModal({
 }
 
 export default function Dashboard() {
-  const [invoices, setInvoices] = useState<Invoice[]>(getInvoice());
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [uploadModalOpen, setUploadModalOpen] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadInvoices = async () => {
+      try {
+        const data = await getInvoice();
+        if (isMounted) {
+          setInvoices(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch invoices:", error);
+      }
+    };
+
+    loadInvoices();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const addInvoice = (
     counterparty: string,
